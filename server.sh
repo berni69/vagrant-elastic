@@ -31,7 +31,7 @@ echo "[+] Elasticsearch installed"
 cat <<EOF > /etc/elasticsearch/elasticsearch.yml
 cluster.name: aeacluster
 node.name: data01.local
-network.host: 0.0.0.0
+network.host: _eth1_
 discovery.seed_hosts: ["ingest01.local"]
 cluster.initial_master_nodes: ["ingest01.local"]
 node.master: false
