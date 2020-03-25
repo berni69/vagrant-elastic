@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "[+] Updating system"
-#yum update -y 
+#yum update -y
 echo "[+] End of Update"
 
 echo "[+] Setting up DNS"
-yum install -y epel-release 
+yum install -y epel-release
 yum install -y nss-mdns net-tools
 
 systemctl enable avahi-daemon
@@ -27,7 +27,7 @@ EOF
 yum install --enablerepo=elasticsearch elasticsearch -y
 echo "[+] Elasticsearch installed"
 
-
+echo "[+] Elasticsearch: config"
 cat <<EOF > /etc/elasticsearch/elasticsearch.yml
 cluster.name: aeacluster
 node.name: data01.local
@@ -42,7 +42,7 @@ path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 EOF
 
+echo "[+] Enabling services"
+
 systemctl enable elasticsearch
 systemctl start elasticsearch
-
-

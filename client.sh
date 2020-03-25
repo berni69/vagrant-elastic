@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "[+] Updating system"
-#yum update -y 
+#yum update -y
 echo "[+] End of Update"
 echo "[+] Setting up DNS"
-yum install -y epel-release 
+yum install -y epel-release
 yum install -y nss-mdns net-tools
 
 systemctl enable avahi-daemon
@@ -26,5 +26,7 @@ yum install --enablerepo=elasticsearch filebeat docker -y
 
 echo "[+] Filebeat installed"
 
+
+echo "[+] Enabling services"
 systemctl enable filebeat
 systemctl start filebeat

@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "[+] Updating system"
-#yum update -y 
+#yum update -y
 echo "[+] End of Update"
 echo "[+] Setting up DNS"
-yum install -y epel-release 
+yum install -y epel-release
 yum install -y nss-mdns net-tools
 
 systemctl enable avahi-daemon
@@ -25,6 +25,7 @@ EOF
 yum install --enablerepo=elasticsearch elasticsearch logstash kibana apm-server java-11-openjdk java-11-openjdk-devel -y
 echo "[+] Elasticsearch installed"
 
+echo "[+] Elasticsearch: config"
 cat <<EOF > /etc/elasticsearch/elasticsearch.yml
 cluster.name: aeacluster
 node.name: ingest01.local
@@ -39,5 +40,16 @@ path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 EOF
 
+echo "[+] Kibana: config"
+cat <<EOF > /etc/kibana/kibana.yml
+server.host: 0.0.0.0
+server.basePath: "/kibana"
+server.rewriteBasePath: true
+server.name: "ingest01.local"
+EOF
+
+echo "[+] Logstash: config"
+
+echo "[+] Enabling services"
 systemctl enable elasticsearch kibana apm-server logstash
 systemctl start elasticsearch kibana apm-server logstash
